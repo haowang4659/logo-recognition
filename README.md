@@ -1,9 +1,9 @@
 # logo-recognition
-one-shot learning logo recognition 
-运行环境说明：
-  运行环境是在ubuntu14.0.4以及配置了caffe的gpu版本
-文件夹说明：
-CM：该文件夹下存储的是第一阶段中训练VGG_M的代码
+one-shot learning logo recognition <br />
+运行环境说明：<br />
+  运行环境是在ubuntu14.0.4以及配置了caffe的gpu版本<br />
+文件夹说明：<br />
+CM：该文件夹下存储的是第一阶段中训练VGG_M的代码<br />
   CM/create_lmdb.sh ：该文件是制作数据集的文件
   CM/extract_feature.py ：该文件是训练完网络后提取特征的代码
   CM/make_flickrset_mean.sh ：该文件是制作数据集的均值的文件
