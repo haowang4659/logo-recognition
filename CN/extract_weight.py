@@ -156,14 +156,6 @@ def get_M_images(image_path,sample_path,class_list,error_list):
 
     image_list_per_class = [os.listdir(image_path + class_name) for class_name in class_list]
     dict_class_image = dict(zip(class_list, image_list_per_class))
-
-    #num_per_class = [len(dict_class_image[class_name]) for class_name in class_list]
-    #dict_class_num = dict(zip(class_list, num_per_class))
-
-    # matrix M image
-    #sample_image_list_per_class = [dict_class_image[class_name][:num_max_per_class] for class_name in class_list]
-    #dict_class_image = dict(zip(class_list, sample_image_list_per_class))
-
     for class_name, image_list in dict_class_image.items():
         mkdir(sample_path + class_name)
         print len(image_list)
@@ -176,14 +168,10 @@ def get_M_images(image_path,sample_path,class_list,error_list):
 
 
 if __name__ == '__main__':
-
     image_path = '/workspace/wanghao/git-repository/original_data/FlickrLogos_crop/sample/'
-
-
     class_list=[]
     label_list=[]
     file = open('/workspace/wanghao/git-repository/original_data/FlickrLogos_crop/train.txt')
-
     while True:
         line = file.readline()
         if not line:
@@ -197,70 +185,15 @@ if __name__ == '__main__':
         pass
 
     class_index = dict(zip(label_list,class_list))
-
-
-   # net = caffe.Net(model_def,caffe.TEST)
     net = caffe.Net(model_def, model_weights, caffe.TEST)
     mu = np.load(caffe_root + 'python/caffe/imagenet/ilsvrc_2012_mean.npy')
-
     mu = mu.mean(1).mean(1)
-    #features = get_feature(net,mu,class_list,class_index)
-    #write_feature(features,class_list)
-   # for layer_name,blob in net.blobs.items():
-    #    print layer_name,blob.data.shape
-    #print '#######################################################'
     for layer_name,param in net.params.items():
         print layer_name,param[0].data.shape
-    #print net.params['prediction'][0].data[class_list.index('adidas')].shape
-    #print net.params['prediction'][0].data[0]
     weights = get_weight(net,class_list)
     print len(weights)
-    #for name,data in weights.items():
-    #    print name,len(weights[name]), len(weights[name][0])
     write_weight(weights,class_list)
-    ##test['hello']=[]
-    #test['hello'].append([1,2,3])
-    #test['hello'].append([1, 2, 3])
-    #print test
-    #data, label = L.ImageData(source=samples_root, batch_size=batch_size, ntop=2, root_folder=samples_root,
-     #                         transform_param=dict(scale=0.00390625))
-    #conv1 = L.Convolution(data, kernel_size=5, stride=1, num_output=20, pad=0, weight_filler=dict(type='xavier'))
-    #pool1 = L.Pooling(conv1, pool=P.Pooling.MAX, kernel_size=2, stride=2)
-    #conv2 = L.Convolution(pool1, kernel_size=5, stride=1, num_output=50, pad=0, weight_filler=dict(type='xavier'))
-    #pool2 = L.Pooling(conv2, pool=P.Pooling.MAX, kernel_size=2, stride=2)
-    #fc3 = L.InnerProduct(pool2, num_output=500, weight_filler=dict(type='xavier'))
-    #relu3 = L.ReLU(fc3, in_place=True)
-    #fc4 = L.InnerProduct(relu3, num_output=10, weight_filler=dict(type='xavier'))
-    #loss = L.SoftmaxWithLoss(fc4, label)
-
-
-
-    #hdf5_file="/workspace/wanghao/git-repository/project/flickr_32/CN/EF/hdf5_chunk.txt"
-    #sample_features, sample_label = L.HDF5Data(source=hdf5_file,batch_size=320, ntop=2)
-
-    #with open(project_root + 'mytest.prototxt', 'w') as f:
-     #   f.write(str(to_proto(loss)))
-        #f.write(str(to_proto(sample_label)))
-
-    #mynet =caffe.Net(project_root + 'mytest.prototxt', caffe.TEST)
-    #for layer_name,blob in mynet.blobs.items():
-    #    print layer_name
-    #error_list=[]
-
-
-
-
-
-
-
-    #while True:
-    #    get_M_images(image_path, samples_root,error_list)
-    #    featrues,error_list = get_feature(net,mu,class_list,class_index,error_list)
-    #    if len(error_list)==0:
-    #        break;
-    #    print len(error_list)
-    #print len(error_list)
-    #write_feature(featrues,class_list,dict(zip(class_list,range(len(class_list)))))
+    
 
 
 
